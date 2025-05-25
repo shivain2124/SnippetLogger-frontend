@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { authAPI } from '../services/api'
+import { authService } from '../services/authService'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -20,13 +20,10 @@ function Login() {
 
     try {
       console.log('Attempting login with:', { email, password })
-      const response = await authAPI.login({ email, password })
-      console.log('Login response:', response.data)
+      const data = await authService.login({ email, password })
+      console.log('Login response:', data)
       
-      // Your backend returns: { message, accessToken, refreshToken }
-      const { accessToken, refreshToken } = response.data
-      
-      // Create a simple user object
+      const { accessToken, refreshToken } = data
       const userObj = { email, id: 'temp' }
       
       console.log('Calling login with:', { userObj, tokens: { accessToken, refreshToken } })

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { authAPI } from '../services/api'
+import { authService } from '../services/authService' // ✅ Correct import
 
 function Register() {
   const [email, setEmail] = useState('')
@@ -16,15 +16,19 @@ function Register() {
     setError('')
 
     try {
-      await authAPI.register({ email, password })
+      console.log('Attempting registration with:', { email, password }) // Debug
+      await authService.register({ email, password }) // ✅ Use authService
+      console.log('Registration successful') // Debug
       navigate('/login')
     } catch (err) {
+      console.error('Registration error:', err) // Debug
       setError(err.response?.data?.message || 'Registration failed')
     } finally {
       setLoading(false)
     }
   }
 
+  // Rest of your component remains the same...
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full space-y-8 p-8">
