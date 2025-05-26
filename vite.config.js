@@ -8,9 +8,16 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
     rollupOptions: {
+      external: ['axios'],
       output: {
-        manualChunks: undefined
+        manualChunks: undefined,
+        globals: {
+          axios: 'axios'
+        }
       }
     }
+  },
+  optimizeDeps: {
+    include: ['axios']
   }
 })
