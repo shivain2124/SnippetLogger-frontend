@@ -1,6 +1,17 @@
 @import "tailwindcss";
 
-/* Add base styles */
+/* Prevent FOUC (Flash of Unstyled Content) */
+html {
+  visibility: hidden;
+  opacity: 0;
+}
+
+html.loaded {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
 * {
   margin: 0;
   padding: 0;
